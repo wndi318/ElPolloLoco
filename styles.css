@@ -1,0 +1,78 @@
+@font-face {
+    font-family: 'aAvocadoTaco';
+    src: url('font/aAvocadoTaco.ttf') format('truetype');
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: url(./img/bg/desert-5112222.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    overflow: hidden;
+    font-family: 'aAvocadoTaco', Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    font-size: 64px;
+    letter-spacing: 3px;
+    color: rgb(58, 58, 58);
+    text-shadow: 8px 2px 0px #F8E7CD;
+}
+
+canvas {
+    background-color: black;
+    display: block;
+}
+
+span {
+    display: flex;
+    width: 720px;
+    justify-content: space-between;
+}
+
+h3 {
+    font-size: 30px;
+    letter-spacing: 3px;
+    color: rgb(58, 58, 58);
+    margin-top: 4px;
+}
+
+@media only screen and (max-width: 720px) {
+    canvas {
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    h1 {
+        display: none;
+    }
+
+    h3 {
+        display: none;
+    }
+}
+
+@media only screen and (max-height: 480px) {
+    canvas {
+        height: 100vh;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    h1 {
+        display: none;
+    }
+
+    h3 {
+        display: none;
+    }
+}
