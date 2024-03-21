@@ -30,6 +30,9 @@ class World {
             this.checkCoinCollison();
             this.checkBottleCollison();
             this.checkThrowObjects();
+        }, 100);
+
+        setInterval(() => {
             this.checkBottleChickenCollison();
         }, 10);
 
@@ -39,6 +42,7 @@ class World {
         if (this.keyboard.D && this.bottleCount > 0) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(bottle);
+            this.bottleBar.setPercentage(this.bottleCount * 10);
             this.bottleCount--;
         }
     }
@@ -66,7 +70,7 @@ class World {
         this.level.bottles.forEach((bottle, index) => {
             if (this.character.isColliding(bottle)) {
                 this.character.getBottle();
-                this.bottleBar.setPercentage(this.character.bottles);
+                this.bottleBar.setPercentage(this.bottleCount * 10);
                 this.level.bottles.splice(index, 1);
                 this.bottleCount++;
             }
@@ -77,8 +81,11 @@ class World {
         this.throwableObjects.forEach((bottle, bottleIndex) => {
             this.level.enemies.forEach((enemy, enemyIndex) => {
                 if (bottle.isColliding(enemy)) {
-                    this.level.enemies.splice(enemyIndex, 1);
-                    this.throwableObjects.splice(bottleIndex, 1);
+                    enemy.deadChicken = true;
+                    setTimeout(() => {
+                        this.level.enemies.splice(enemyIndex, 1);
+                        this.throwableObjects.splice(bottleIndex, 1);
+                    }, 500);
                 }
             });
         });

@@ -2,6 +2,7 @@ class MiniChicken extends MovableObject {
     y = 380;
     height = 40;
     width = 40;
+    deadChicken = false;
 
     offset = {
         top: -5,
@@ -31,6 +32,7 @@ class MiniChicken extends MovableObject {
 
     animate() {
         this.smallChickenMoveLeft();
+        this.chickenDied();
     }
 
     smallChickenMoveLeft() {
@@ -40,6 +42,15 @@ class MiniChicken extends MovableObject {
 
         setInterval(() => {
             this.playAnimation(this.IMAGES_WALKING);
+        }, 150);
+    }
+
+    chickenDied() {
+        setInterval(() => {
+            if (this.deadChicken) {
+                this.speed = 0;
+                this.playAnimation(this.IMAGES_DEAD);
+            } 
         }, 150);
     }
 }

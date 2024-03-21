@@ -2,6 +2,7 @@ class Chicken extends MovableObject {
     y = 360;
     height = 50;
     width = 70;
+    deadChicken = false;
 
     offset = {
         top: 2,
@@ -30,7 +31,8 @@ class Chicken extends MovableObject {
     }
 
     animate() {
-        this.chickenMoveLeft();        
+        this.chickenMoveLeft();
+        this.chickenDied();
     }
 
     chickenMoveLeft() {
@@ -42,4 +44,13 @@ class Chicken extends MovableObject {
             this.playAnimation(this.IMAGES_WALKING);
         }, 150);
     }
-}
+
+    chickenDied() {
+        setInterval(() => {
+            if (this.deadChicken) {
+                this.speed = 0;
+                this.playAnimation(this.IMAGES_DEAD);
+            } 
+        }, 150);
+    }
+    }

@@ -115,10 +115,6 @@ class Character extends MovableObject {
     }
 
     getBottle() {
-        this.bottles += 10;
-        if (this.bottles > 100) {
-            this.bottles = 100;
-        }
         this.pick_bottle.play();
     }
 
