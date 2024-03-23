@@ -2,8 +2,9 @@ class MovableObject extends DrawableObject {
     speed = 0.1;
     otherDirection = false;
     speedY = 0;
-    acceleration = 2.5;
+    acceleration = 3;
     energy = 100;
+    endbossEnergy = 100;
     lastHit = 0;
     hurt_sound = new Audio ('../audio/hurt.mp3')
 
@@ -33,13 +34,22 @@ class MovableObject extends DrawableObject {
     }
 
     hit() {
-        this.energy -= 20;
+        this.energy -= 10;
         if (this.energy < 0) {
             this.energy = 0;
         } else {
             this.lastHit = new Date().getTime();
         }
         this.hurt_sound.play();
+    }
+
+    endbossHit() {
+        this.endbossEnergy -= 20;
+        if (this.endbossEnergy < 0) {
+            this.endbossEnergy = 0;
+        } else {
+            this.lastHit = new Date().getTime();
+        }
     }
 
     isDead() {

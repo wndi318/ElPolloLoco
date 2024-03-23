@@ -1,10 +1,11 @@
 class Character extends MovableObject {
-    y = 90;
+    y = 100;
     height = 240;
     width = 100;
     speed = 10;
     coins = 0;
     bottles = 0;
+    idleTime = new Date().getTime();
 
     IMAGES_WALKING = [
         '../img/2_character_pepe/2_walk/W-21.png',
@@ -27,6 +28,32 @@ class Character extends MovableObject {
         '../img/2_character_pepe/3_jump/J-39.png'
     ]
 
+    IMAGES_IDLE = [
+        'img/2_character_pepe/1_idle/idle/I-1.png',
+        'img/2_character_pepe/1_idle/idle/I-2.png',
+        'img/2_character_pepe/1_idle/idle/I-3.png',
+        'img/2_character_pepe/1_idle/idle/I-4.png',
+        'img/2_character_pepe/1_idle/idle/I-5.png',
+        'img/2_character_pepe/1_idle/idle/I-6.png',
+        'img/2_character_pepe/1_idle/idle/I-7.png',
+        'img/2_character_pepe/1_idle/idle/I-8.png',
+        'img/2_character_pepe/1_idle/idle/I-9.png',
+        'img/2_character_pepe/1_idle/idle/I-10.png'
+    ];
+
+    IMAGES_SLEEPING = [
+        'img/2_character_pepe/1_idle/long_idle/I-11.png',
+        'img/2_character_pepe/1_idle/long_idle/I-12.png',
+        'img/2_character_pepe/1_idle/long_idle/I-13.png',
+        'img/2_character_pepe/1_idle/long_idle/I-14.png',
+        'img/2_character_pepe/1_idle/long_idle/I-15.png',
+        'img/2_character_pepe/1_idle/long_idle/I-16.png',
+        'img/2_character_pepe/1_idle/long_idle/I-17.png',
+        'img/2_character_pepe/1_idle/long_idle/I-18.png',
+        'img/2_character_pepe/1_idle/long_idle/I-19.png',
+        'img/2_character_pepe/1_idle/long_idle/I-20.png'
+    ];
+
     IMAGES_DEAD = [
         '../img/2_character_pepe/5_dead/D-51.png',
         '../img/2_character_pepe/5_dead/D-52.png',
@@ -46,10 +73,10 @@ class Character extends MovableObject {
     world;
     walking_sound = new Audio('../audio/walking.mp3');
     jumping_sound = new Audio('../audio/jump.mp3');
-    coin_sound = new Audio ('../audio/coin.mp3');
-    pick_bottle = new Audio ('../audio/pick_bottle.mp3');
+    coin_sound = new Audio('../audio/coin.mp3');
+    pick_bottle = new Audio('../audio/pick_bottle.mp3');
 
-    offset = {              //offset png damage
+    offset = {
         top: 85,
         left: 15,
         right: 10,
@@ -57,9 +84,11 @@ class Character extends MovableObject {
     }
 
     constructor() {
-        super().loadImage('../img/2_character_pepe/2_walk/W-21.png');
+        super().loadImage('img/2_character_pepe/1_idle/idle/I-1.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
+        this.loadImages(this.IMAGES_IDLE);
+        this.loadImages(this.IMAGES_SLEEPING);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
         this.applyGravity();
@@ -90,6 +119,9 @@ class Character extends MovableObject {
         }, 1000 / 60);
 
         setInterval(() => {
+            const currentTime = new Date().getTime();
+            const timeSinceLastMove = currentTime - this.idleTime;
+
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
             }
@@ -98,12 +130,20 @@ class Character extends MovableObject {
             }
             else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
-            } else {
-                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+            } 
+            else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                     this.playAnimation(this.IMAGES_WALKING);
-                }
+                    this.idleTime = currentTime;
             }
+            else if (timeSinceLastMove > 5000) {
+                this.playAnimation(this.IMAGES_SLEEPING);
+            }
+            else if (!this.isAboveGround()) {
+                this.playAnimation(this.IMAGES_IDLE);
+            }
+
         }, 50);
+
     }
 
     getCoin() {

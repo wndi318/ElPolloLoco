@@ -11,6 +11,8 @@ class MiniChicken extends MovableObject {
         bottom: -5
     }
 
+    hitChickenSound = new Audio('../audio/chicken_hit.mp3')
+
     IMAGES_WALKING = [
         '../img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
         '../img/3_enemies_chicken/chicken_small/1_walk/2_w.png',
@@ -21,11 +23,11 @@ class MiniChicken extends MovableObject {
         '../img/3_enemies_chicken/chicken_small/2_dead/dead.png'
     ]
 
-    constructor() {
+    constructor(x) {
         super().loadImage('../img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_DEAD);
-        this.x = 400 + Math.random() * 2500; // Zahl zwischen 200 und 700 
+        this.x = x;
         this.speed = 0.15 + Math.random() * 0.5;
         this.animate();
     }
@@ -46,11 +48,13 @@ class MiniChicken extends MovableObject {
     }
 
     chickenDied() {
-        setInterval(() => {
+        let chickenInterval = setInterval(() => {
             if (this.deadChicken) {
                 this.speed = 0;
+                this.hitChickenSound.play();
                 this.playAnimation(this.IMAGES_DEAD);
-            } 
+                clearInterval(chickenInterval);
+            }
         }, 150);
     }
 }
