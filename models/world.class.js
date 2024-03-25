@@ -137,9 +137,10 @@ class World {
 
     endbossAction() {
         this.level.endboss.forEach((endboss) => {
-            if (this.character.x >= 3500) {
-                endboss.walking();
+            if (this.character.x >= 3300) {
                 endboss.endbossArea = true;
+                endboss.animate();
+                endboss.boss_sound.play();
             }
         }); 
     }

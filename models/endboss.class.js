@@ -5,7 +5,7 @@ class Endboss extends MovableObject {
     y = 60;
     endbossArea = false;
     endbossDead = false;
-    
+
     offset = {
         top: 65,
         left: 5,
@@ -31,34 +31,62 @@ class Endboss extends MovableObject {
         '../img/4_enemie_boss_chicken/2_alert/G12.png'
     ];
 
-    constructor (x) {
+    IMAGES_ATTACK = [
+        '../img/4_enemie_boss_chicken/3_attack/G13.png',
+        '../img/4_enemie_boss_chicken/3_attack/G14.png',
+        '../img/4_enemie_boss_chicken/3_attack/G15.png',
+        '../img/4_enemie_boss_chicken/3_attack/G16.png',
+        '../img/4_enemie_boss_chicken/3_attack/G17.png',
+        '../img/4_enemie_boss_chicken/3_attack/G18.png',
+        '../img/4_enemie_boss_chicken/3_attack/G19.png',
+        '../img/4_enemie_boss_chicken/3_attack/G20.png'
+    ]
+
+    boss_sound = new Audio('../audio/boss_sound.mp3')
+
+    constructor(x) {
         super().loadImage(this.IMAGES_ALERT[0]);
         this.loadImages(this.IMAGES_ALERT);
         this.loadImages(this.IMAGES_WALKING);
+        this.loadImages(this.IMAGES_ATTACK);
         this.x = x;
+        this.applyGravity();
         this.animate();
-        this.speed = 0.05
+        this.speed = 20;
     }
 
     animate() {
         if (!this.endbossArea) {
             this.alert();
+        } else {
+            this.walkingAndJumping();
+            this.moveLeft();
         }
     }
- 
+
     alert() {
-        setInterval(() => {
+        const alertInterval = setInterval(() => {
             this.playAnimation(this.IMAGES_ALERT);
         }, 150);
-    }
-    
-    walking() {
-        setInterval(() => {
-            this.playAnimation(this.IMAGES_WALKING);
-        }, 300);
 
-        setInterval(() => {
-            this.moveLeft();
-        }, 1000 / 60);
+        const checkEndbossAreaInterval = setInterval(() => {
+            if (this.endbossArea) {
+                clearInterval(alertInterval);
+                clearInterval(checkEndbossAreaInterval);
+            }
+        }, 100);
     }
+
+    walkingAndJumping() {
+        this.playAnimation(this.IMAGES_WALKING);
+        if (!this.isAboveGround()) {
+            this.walk = setTimeout(() => {
+                this.jump();
+                this.speed = 5;
+                this.playAnimation(this.IMAGES_ATTACK);
+                clearTimeout(this.walk);
+            }, 200)
+        }
+    }
+
 }
