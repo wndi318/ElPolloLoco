@@ -34,6 +34,7 @@ class World {
             this.checkBottleCollison();
             this.checkThrowObjects();
             this.endbossAction();
+            this.checkEndbossIsDead();
         }, 100);
 
         setInterval(() => {
@@ -143,6 +144,14 @@ class World {
                 endboss.boss_sound.play();
             }
         }); 
+    }
+
+    checkEndbossIsDead() {
+        this.level.endboss.forEach((endboss) => {
+            if (this.endboss.endbossEnergy === 0) {
+                endboss.endbossDead = true;
+            }
+        });
     }
 
     draw() {
