@@ -12,9 +12,6 @@ const level1 = new Level(
         new MiniChicken(2900),
     ],
     [
-        new Endboss(3800)
-    ],
-    [
         new Cloud()
     ],
     [

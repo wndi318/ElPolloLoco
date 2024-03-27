@@ -1,13 +1,14 @@
 class Endboss extends MovableObject {
-    height = 400;
-    width = 250;
-    y = 60;
+    height = 350;
+    width = 200;
+    x = 3800;
     endbossArea = false;
     endbossDead = false;
     endbossEnd = false;
     alertInterval;
     checkEndbossAreaInterval;
     walkingAndJumpingInterval;
+    gravityEnd = 100;
 
     offset = {
         top: 65,
@@ -53,16 +54,16 @@ class Endboss extends MovableObject {
 
     boss_sound = new Audio('audio/boss_sound.mp3')
 
-    constructor(x) {
+    constructor() {
         super().loadImage(this.IMAGES_ALERT[0]);
         this.loadImages(this.IMAGES_ALERT);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_DEAD);
-        this.x = x;
         this.applyGravity();
         this.animate();
         this.speed = 20;
+        this.y = 0;
     }
 
     animate() {

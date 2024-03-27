@@ -1,11 +1,12 @@
 class Character extends MovableObject {
-    y = 100;
+    y = 180;
     height = 240;
     width = 100;
     speed = 10;
     coins = 0;
     bottles = 0;
     idleTime = new Date().getTime();
+    gravityEnd = 180;
 
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',
