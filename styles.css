@@ -16,16 +16,80 @@ body {
     font-family: 'aAvocadoTaco', Arial, Helvetica, sans-serif;
 }
 
-.startScreen {
+#gameContent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: absolute;
-    max-width: 100%;
-    max-height: 100%;
-    top: 15%;
+    width: 1280px;
+    height: 720px;
 }
 
-.startScreen img {
-    max-width: 100%;
-    max-height: 100%;
+.startScreen {
+    position: absolute;
+}
+
+#startGameButton {
+    position: fixed;
+    top: 11%;
+    left: 45%;
+    font-family: 'aAvocadoTaco', Arial, Helvetica, sans-serif;
+    background-color: #FF9600;
+    height: 50px;
+    width: 200px;
+    transition: transform 0.3s ease;
+    font-size: 25px;
+}
+
+#startGameButton:hover {
+    cursor: pointer;
+    size: 1.1;
+    transform: scale(1.1);
+}
+
+#fullScreenButton {
+    position: fixed;
+    height: 70px;
+    top: 10.25%;
+    left: 64%;
+    transition: transform 0.3s ease;
+    background: none;
+    border: none;
+}
+
+#fullScreenButton img {
+    height: 70px;
+}
+
+#fullScreenButton:hover {
+    cursor: pointer;
+    size: 1.1;
+    transform: scale(1.1);
+}
+
+#muteButton {
+    position: fixed;
+    height: 60px;
+    top: 10.75%;
+    left: 59%;
+    transition: transform 0.3s ease;
+    background: none;
+    border: none;
+}
+
+#muteButton img {
+    height: 60px;
+}
+
+#muteButton:hover {
+    cursor: pointer;
+    size: 1.1;
+    transform: scale(1.1);
+}
+
+#startScreenImage {
+    width: 720px;
+    height: 480px;
 }
 
 h1 {
