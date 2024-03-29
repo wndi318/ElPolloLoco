@@ -12,11 +12,14 @@ class World {
     endbossBar = new EndbossBar();
     throwableObjects = [];
     bottleCount = 0;
+    backgroundSound = new Audio('audio/background_sound.mp3')
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
+        this.entered3300 = false;
+        this.endboss.animate();
         this.draw();
         this.setWorld();
         this.run();
@@ -24,6 +27,7 @@ class World {
 
     setWorld() {
         this.character.world = this;
+        this.backgroundSound.play();
     }
 
     run() {
@@ -133,10 +137,14 @@ class World {
     }
 
     endbossAction() {
-        if (this.character.x >= 3300) {
+        if (this.character.x >= 3300 && !this.entered3300) {
+            this.entered3300 = true;
             this.endboss.endbossArea = true;
-            this.endboss.animate();
             this.endboss.boss_sound.play();
+            this.backgroundSound.pause();
+        }
+        if (this.entered3300) {
+            this.endboss.animate();
         }
     }
 

@@ -5,6 +5,8 @@ class Endboss extends MovableObject {
     endbossArea = false;
     endbossDead = false;
     endbossEnd = false;
+    deadAnimationPlayed = false;
+    normalAnimationSopped = false;
     alertInterval;
     checkEndbossAreaInterval;
     walkingAndJumpingInterval;
@@ -61,21 +63,20 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_DEAD);
         this.applyGravity();
-        this.animate();
         this.speed = 20;
         this.y = 0;
     }
 
     animate() {
-        if (!this.endbossArea) {
-            this.alert();
-        } else {
-            if (this.endbossDead) {
-                this.dead();
+        if (!this.endbossDead) {
+            if (!this.endbossArea) {
+                this.alert();
             } else {
                 this.walkingAndJumping();
                 this.moveLeft();
             }
+        } else {
+            this.dead();
         }
     }
 
@@ -109,9 +110,9 @@ class Endboss extends MovableObject {
         clearInterval(this.checkEndbossAreaInterval);
         clearInterval(this.walkingAndJumpingInterval);
         this.speed = 0;
-        if (!this.endbossEnd) {
+        if (!this.endbossEnd && !this.deadAnimationPlayed) { // Überprüfen, ob die Todesanimation bereits abgespielt wurde
             this.playAnimation(this.IMAGES_DEAD);
-            this.endbossEnd = true;
+            this.deadAnimationPlayed = true; // Markieren Sie die Todesanimation als abgespielt
         } else {
             this.showLastDeadImage();
         }
