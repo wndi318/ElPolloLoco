@@ -11,8 +11,6 @@ class MiniChicken extends MovableObject {
         bottom: -5
     }
 
-    hitChickenSound = new Audio('audio/chicken_hit.mp3')
-
     IMAGES_WALKING = [
         'img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
         'img/3_enemies_chicken/chicken_small/1_walk/2_w.png',
@@ -51,7 +49,7 @@ class MiniChicken extends MovableObject {
         let chickenInterval = setInterval(() => {
             if (this.deadChicken) {
                 this.speed = 0;
-                this.hitChickenSound.play();
+                hitChickenSound.play();
                 this.playAnimation(this.IMAGES_DEAD);
                 clearInterval(chickenInterval);
             }

@@ -6,23 +6,45 @@
 body {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     background-image: url(./img/bg/desert-5112222.svg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
+    width: 100%;
     overflow: hidden;
     font-family: 'aAvocadoTaco', Arial, Helvetica, sans-serif;
+    backdrop-filter: blur(10px);
 }
 
-#gameContent {
+#gameScreen {
+    max-width: 100%;
+    max-Height: 100%;
+}
+
+.options {
+    max-width: 720px;
+    background-color: #0A9EC8;
+    max-height: fit-content;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
-    position: absolute;
-    width: 1280px;
-    height: 720px;
+}
+
+.keyInfo {
+    max-width: 720px;
+    background-color: #994408;
+    max-height: fit-content;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+span {
+    margin-top: 10px;
+    font-size: 20px;
 }
 
 .startScreen {
@@ -30,9 +52,9 @@ body {
 }
 
 #startGameButton {
-    position: fixed;
-    top: 11%;
-    left: 45%;
+    position: absolute;
+    top: 10px;
+    left: 37%;
     font-family: 'aAvocadoTaco', Arial, Helvetica, sans-serif;
     background-color: #FF9600;
     height: 50px;
@@ -48,17 +70,19 @@ body {
 }
 
 #fullScreenButton {
-    position: fixed;
-    height: 70px;
-    top: 10.25%;
-    left: 64%;
     transition: transform 0.3s ease;
     background: none;
     border: none;
+    font-family: 'aAvocadoTaco', Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
 }
 
 #fullScreenButton img {
-    height: 70px;
+    height: 50px;
 }
 
 #fullScreenButton:hover {
@@ -68,17 +92,19 @@ body {
 }
 
 #muteButton {
-    position: fixed;
-    height: 60px;
-    top: 10.75%;
-    left: 59%;
     transition: transform 0.3s ease;
     background: none;
     border: none;
+    font-family: 'aAvocadoTaco', Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px
 }
 
 #muteButton img {
-    height: 60px;
+    height: 45px;
 }
 
 #muteButton:hover {
@@ -92,29 +118,9 @@ body {
     height: 480px;
 }
 
-h1 {
-    font-size: 64px;
-    letter-spacing: 3px;
-    color: rgb(58, 58, 58);
-    text-shadow: 8px 2px 0px #F8E7CD;
-}
-
 canvas {
     background-color: black;
     display: block;
-}
-
-span {
-    display: flex;
-    width: 720px;
-    justify-content: space-between;
-}
-
-h3 {
-    font-size: 30px;
-    letter-spacing: 3px;
-    color: rgb(58, 58, 58);
-    margin-top: 4px;
 }
 
 @media only screen and (max-width: 720px) {
@@ -124,14 +130,21 @@ h3 {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+        z-index: 0;
     }
 
-    h1 {
-        display: none;
+    .startScreen {
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
     }
 
-    h3 {
-        display: none;
+    #startScreenImage {
+        height: 100%;
+        width: 100%;
     }
 }
 
@@ -142,13 +155,20 @@ h3 {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+        z-index: 0;
     }
 
-    h1 {
-        display: none;
+    .startScreen {
+        width: 100vh;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
     }
 
-    h3 {
-        display: none;
+    #startScreenImage {
+        height: 100%;
+        width: 100%;
     }
 }

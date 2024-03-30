@@ -6,7 +6,6 @@ class MovableObject extends DrawableObject {
     energy = 100;
     endbossEnergy = 100;
     lastHit = 0;
-    hurt_sound = new Audio ('audio/hurt.mp3')
     gravityEnd;
 
     applyGravity() {
@@ -44,7 +43,7 @@ class MovableObject extends DrawableObject {
         } else {
             this.lastHit = new Date().getTime();
         }
-        this.hurt_sound.play();
+        hurtSound.play();
     }
 
     endbossHit() {

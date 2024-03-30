@@ -72,10 +72,6 @@ class Character extends MovableObject {
     ]
 
     world;
-    walking_sound = new Audio('audio/walking.mp3');
-    jumping_sound = new Audio('audio/jump.mp3');
-    coin_sound = new Audio('audio/coin.mp3');
-    pick_bottle = new Audio('audio/pick_bottle.mp3');
 
     offset = {
         top: 85,
@@ -98,23 +94,23 @@ class Character extends MovableObject {
 
     animate() {
         setInterval(() => {
-            this.walking_sound.pause();
+            walkingSound.pause();
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.moveRight();
                 this.otherDirection = false;
-                this.walking_sound.play();
+                walkingSound.play();
             }
 
             if (this.world.keyboard.LEFT && this.x > 0) {
                 this.moveLeft();
                 this.otherDirection = true;
-                this.walking_sound.play();
+                walkingSound.play();
             }
             this.world.camera_x = -this.x + 100;
 
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
                 this.jump();
-                this.jumping_sound.play();
+                jumpingSound.play();
             }
 
         }, 1000 / 60);
@@ -152,11 +148,11 @@ class Character extends MovableObject {
         if (this.coins > 100) {
             this.coins = 100;
         }
-        this.coin_sound.play();
+        coinSound.play();
     }
 
     getBottle() {
-        this.pick_bottle.play();
+        pickBottleSound.play();
     }
 
 }
