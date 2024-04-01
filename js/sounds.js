@@ -43,4 +43,11 @@ function toggleMute() {
     }
 }
 
+function stopAllSounds() {
+    allSounds.forEach(sound => {
+        sound.pause();
+        sound.currentTime = 0;
+    });
+}
+
 muteButton.addEventListener("click", toggleMute);

@@ -119,6 +119,14 @@ class Endboss extends MovableObject {
     showLastDeadImage() {
         const lastDeadImage = this.IMAGES_DEAD[this.IMAGES_DEAD.length - 1];
         this.loadImage(lastDeadImage);
+        setTimeout(() => {
+            this.gameEnd();
+        }, 700);
+    }
+
+    gameEnd() {
+        gameOver();
+        stopAllSounds();
     }
 
 }

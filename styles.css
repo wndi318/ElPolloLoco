@@ -22,25 +22,27 @@ body {
 
 #gameScreen {
     max-width: 100%;
-    max-Height: 100%;
+    max-height: 100%;
 }
 
 .options {
-    max-width: 720px;
+    max-width: 100%;
     background-color: #0A9EC8;
     max-height: fit-content;
     display: flex;
     justify-content: space-around;
     align-items: center;
+    z-index: 1;
 }
 
 .keyInfo {
-    max-width: 720px;
+    max-width: 100%;
     background-color: #994408;
     max-height: fit-content;
     display: flex;
     justify-content: space-around;
     align-items: center;
+    z-index: 1;
 }
 
 span {
@@ -52,22 +54,37 @@ span {
     position: absolute;
 }
 
+#startScreenImage {
+    width: 720px;
+    height: 480px;
+}
+
+.endScreen {
+    position: absolute;
+    display: none;
+}
+
+#endScreenImage {
+    width: 720px;
+    height: 480px;
+}
+
 #startGameButton {
     position: absolute;
     top: 10px;
-    left: 37%;
+    left: 50%;
+    transform: translateX(-50%);
     font-family: 'aAvocadoTaco', Arial, Helvetica, sans-serif;
     background-color: #FF9600;
-    height: 50px;
-    width: 200px;
-    transition: transform 0.3s ease;
+    height: 10%;
+    width: 30%;
     font-size: 25px;
 }
 
 #startGameButton:hover {
     cursor: pointer;
-    size: 1.1;
-    transform: scale(1.1);
+    scale: 1.1;
+    transition: 250ms;
 }
 
 #fullScreenButton {
@@ -114,13 +131,27 @@ span {
     transform: scale(1.1);
 }
 
-#startScreenImage {
-    width: 720px;
-    height: 480px;
+.mobileButtons {
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mobileButtons img {
+    height: 40px;
+    margin-left: 4px;
+    margin-right: 4px;
+    border: 2px solid black;
+    border-radius: 5px;
 }
 
 canvas {
-    background-color: black;
+    background-color: transparent;
     display: block;
 }
 
@@ -133,6 +164,52 @@ canvas {
         transform: translate(-50%, -50%);
         z-index: 0;
     }
+
+    #gameScreen {
+        height: 100%;
+        width: 100%;
+    }
+    
+    .startScreen {
+        z-index: 1;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: auto;
+    }
+
+    .endScreen {
+        z-index: 1;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: auto;
+    }
+
+    #endScreenImage {
+        width: 100%;
+        height: auto;
+    }
+
+    #startScreenImage {
+        width: 100%;
+        height: auto;
+    }
+
+    #startGameButton {
+        font-size: 3.5vw;
+    }
+
+    .keyInfo {
+        display: none;
+    }
+
+    .mobileButtons {
+        display: flex;
+    }
+
 }
 
 @media only screen and (max-height: 480px) {
@@ -143,5 +220,50 @@ canvas {
         left: 50%;
         transform: translate(-50%, -50%);
         z-index: 0;
+    }
+
+    #gameScreen {
+        height: 100%;
+        width: 100%;
+    }
+
+    .startScreen {
+        z-index: 1;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: auto;
+    }
+
+    .endScreen {
+        z-index: 1;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: auto;
+    }
+
+    #endScreenImage {
+        width: 100%;
+        height: auto;
+    }
+
+    #startScreenImage {
+        width: 100%;
+        height: auto;
+    }
+
+    #startGameButton {
+        font-size: 3.5vw;
+    }
+
+    .keyInfo {
+        display: none;
+    }
+
+    .mobileButtons {
+        display: flex;
     }
 }

@@ -35,25 +35,38 @@
 <body id="fullBody">
   <div id="gameScreen">
     <div class="options">
-        <button id="muteButton" onclick="toggleMute('click')">
-          <img id="muteIcon" src="img/design_icons/mute.png">
-          <span>Mute / Unmute</span>
-        </button>
-        <button id="fullScreenButton" onclick="toggleFullScreen()">
-          <img id="fullScreenIcon" src="img/design_icons/fullscreen.png">
-          <span>Fullscreen</span>
-        </button>
+      <button id="muteButton" onclick="toggleMute('click')">
+        <img id="muteIcon" src="img/design_icons/mute.png">
+        <span>Mute / Unmute</span>
+      </button>
+      <button id="fullScreenButton" onclick="toggleFullScreen()">
+        <img id="fullScreenIcon" src="img/design_icons/fullscreen.png">
+        <span>Fullscreen</span>
+      </button>
     </div>
     <div class="startScreen" id="startScreen">
       <img id="startScreenImage" src="img/9_intro_outro_screens/start/startscreen_2.png">
       <button id="startGameButton" onclick="startGame()">Start Game</button>
     </div>
+    <div class="endScreen" id="endScreen">
+      <img id="endScreenImage" src="img/9_intro_outro_screens/game_over/game over.png">
+    </div>
     <canvas width="720" height="480" id="canvas"></canvas>
     <div class="keyInfo">
-        <span>"<" = LEFT</span>
-        <span>">" = RIGHT</span>
-        <span>"SPACE" = JUMP</span>
-        <span>"D" = THROW BOTTLE</span>
+      <span>"<"=LEFT</span>
+          <span>">" = RIGHT</span>
+          <span>"SPACE" = JUMP</span>
+          <span>"D" = THROW BOTTLE</span>
+    </div>
+    <div class="mobileButtons">
+      <div>
+        <img id="btnLeft" src="img/design_icons/mobile_left.png">
+        <img id="btnRight" src="img/design_icons/mobile_right.png">
+      </div>
+      <div>
+        <img id="btnJump" src="img/design_icons/mobile_jump.png">
+        <img id="btnThrow" src="img/design_icons/mobile_bottle.png">
+      </div>
     </div>
   </div>
 </body>
