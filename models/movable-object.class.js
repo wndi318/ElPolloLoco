@@ -1,3 +1,7 @@
+/**
+ * Represents a movable object in the game.
+ * Extends the DrawableObject class.
+ */
 class MovableObject extends DrawableObject {
     speed = 0.1;
     otherDirection = false;
@@ -8,6 +12,9 @@ class MovableObject extends DrawableObject {
     lastHit = 0;
     gravityEnd;
 
+    /**
+     * Applies gravity to the movable object, affecting its vertical movement.
+     */
     applyGravity() {
         setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
@@ -17,6 +24,10 @@ class MovableObject extends DrawableObject {
         }, 1000 / 25);
     }
 
+    /**
+     * Checks if the object is above the ground.
+     * True if the object is above the ground, otherwise false.
+     */
     isAboveGround() {
         if (this instanceof ThrowableObject) {
             return true;
@@ -28,7 +39,10 @@ class MovableObject extends DrawableObject {
         }
     }
 
-    // z.B. character.isColliding(chicken);
+    /**
+     * Checks if the movable object is colliding with another object.
+     * @param {MovableObject} mo - The other movable object to check collision with.
+     */
     isColliding(mo) {
         return this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
             this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&
@@ -36,6 +50,10 @@ class MovableObject extends DrawableObject {
             this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom;
     }
 
+    /**
+     * Decreases the energy of the movable object when hit.
+     * Plays a hurt sound effect.
+     */
     hit() {
         this.energy -= 10;
         if (this.energy < 0) {
@@ -46,6 +64,9 @@ class MovableObject extends DrawableObject {
         hurtSound.play();
     }
 
+    /**
+     * Decreases the end boss's energy when hit.
+     */
     endbossHit() {
         this.endbossEnergy -= 20;
         if (this.endbossEnergy <= 0) {
@@ -55,32 +76,50 @@ class MovableObject extends DrawableObject {
         }
     }
 
+    /**
+     * Checks if the movable object is dead.
+     */
     isDead() {
         return this.energy == 0;
     }
 
+    /**
+     * Checks if the movable object is hurt based on time passed since last hit.
+     */
     isHurt() {
-        let timepassed = new Date().getTime() - this.lastHit; //Difference in ms
-        timepassed = timepassed / 1000; //Difference in s
+        let timepassed = new Date().getTime() - this.lastHit;
+        timepassed = timepassed / 1000;
         return timepassed < 0.5;
     }
 
+    /**
+     * Plays an animation by changing the current image of the object.
+     * @param {string[]} images - Array of image paths representing the animation frames.
+     */
     playAnimation(images) {
-        let i = this.currentImage % images.length; // let i = 6 % 6; => 1, Rest 0
-        // i = 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, 0,....
+        let i = this.currentImage % images.length;
         let path = images[i];
         this.img = this.imageCache[path];
-        this.currentImage++; 
+        this.currentImage++;
     }
 
+    /**
+     * Moves the movable object to the right based on its speed.
+     */
     moveRight() {
         this.x += this.speed;
     }
 
+    /**
+     * Moves the movable object to the left based on its speed.
+     */
     moveLeft() {
         this.x -= this.speed;
     }
 
+    /**
+     * Makes the movable object jump by setting its vertical speed.
+     */
     jump() {
         this.speedY = 30;
     }

@@ -81,6 +81,18 @@ span {
     font-size: 25px;
 }
 
+#restartGame {
+    position: absolute;
+    top: 55px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'aAvocadoTaco', Arial, Helvetica, sans-serif;
+    background-color: #FF9600;
+    height: 10%;
+    width: 30%;
+    font-size: 25px;
+}
+
 #startGameButton:hover {
     cursor: pointer;
     scale: 1.1;
@@ -150,12 +162,39 @@ span {
     border-radius: 5px;
 }
 
+.rotatePhone {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    z-index: 2000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background-color: #6D6D6D;
+}
+
+.rotatePhone img {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+}
+
+.rotatePhone span {
+    position: fixed;
+    font-size: 50px;
+    top: 100px;
+    left: 10%;
+    display: flex;
+    color: white;
+    z-index: 1;
+}
+
 canvas {
     background-color: transparent;
     display: block;
 }
 
-@media only screen and (max-width: 720px) {
+@media only screen and (max-width: 950px) {
     canvas {
         width: 100%;
         position: absolute;
@@ -165,11 +204,15 @@ canvas {
         z-index: 0;
     }
 
+    .rotatePhone {
+        display: flex;
+    }
+
     #gameScreen {
         height: 100%;
         width: 100%;
     }
-    
+
     .startScreen {
         z-index: 1;
         top: 50%;
@@ -222,6 +265,10 @@ canvas {
         z-index: 0;
     }
 
+    .rotatePhone {
+        display: none;
+    }
+
     #gameScreen {
         height: 100%;
         width: 100%;
@@ -245,6 +292,25 @@ canvas {
         height: auto;
     }
 
+    .options {
+        position: absolute;
+        top: 50px;
+        right: 0;
+        z-index: 1;
+        display: block;
+        justify-content: space-between;
+        align-items: center;
+        background-color: transparent;
+    }
+
+    #fullScreenButton {
+        display: none;
+    }
+
+    span {
+        display: none;
+    }
+
     #endScreenImage {
         width: 100%;
         height: auto;
@@ -256,6 +322,10 @@ canvas {
     }
 
     #startGameButton {
+        font-size: 3.5vw;
+    }
+
+    #restartGame {
         font-size: 3.5vw;
     }
 

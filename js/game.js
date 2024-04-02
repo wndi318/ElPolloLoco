@@ -2,22 +2,43 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 
+
+/**
+ * Starts the game, initializes it, and hides the start screen.
+ */
 function startGame() {
     init();
     document.getElementById('startScreen').style.display = 'none';
 }
 
+/**
+ * Displays the end screen and stops all intervals.
+ */
 function gameOver() {
     document.getElementById('endScreen').style.display = 'block';
     for (let i = 1; i < 9999; i++) window.clearInterval(i);
 }
 
+/**
+ * Taking the user back to the menu.
+ */
+function backToMenu() {
+    location.reload();
+}
+
+/**
+ * Initializes the game by setting up the canvas and creating the game world.
+ * Also sets up mobile controls.
+ */
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     setupMobileControls();
 }
 
+/**
+ * Event listener function that listens for keydown events and updates the keyboard object accordingly.
+ */
 window.addEventListener('keydown', (event) => {
     if (event.keyCode == 39) {
         keyboard.RIGHT = true;
@@ -36,6 +57,9 @@ window.addEventListener('keydown', (event) => {
     }
 });
 
+/**
+ * Event listener function that listens for keyup events and updates the keyboard object accordingly.
+ */
 window.addEventListener('keyup', (event) => {
     if (event.keyCode == 39) {
         keyboard.RIGHT = false;
@@ -54,6 +78,9 @@ window.addEventListener('keyup', (event) => {
     }
 });
 
+/**
+ * Sets up mobile controls for the game by adding touch event listeners to control buttons.
+ */
 function setupMobileControls() {
     const btnLeft = document.getElementById('btnLeft');
     const btnRight = document.getElementById('btnRight');
@@ -93,6 +120,9 @@ function setupMobileControls() {
     });
 }
 
+/**
+ * Toggles the fullscreen mode for the specified element.
+ */
 function toggleFullScreen() {
     let elem = document.getElementById('fullBody');
 

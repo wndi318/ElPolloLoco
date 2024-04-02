@@ -20,13 +20,20 @@ const allSounds = [
     backgroundSound
 ];
 
+const muteButton = document.getElementById("muteButton");
+let isMuted = false;
+
+
+/**
+ * Adjusts the volume of all sounds in the `allSounds` array.
+ */
 allSounds.forEach(sound => {
     sound.volume = 0.25;
 });
 
-const muteButton = document.getElementById("muteButton");
-let isMuted = false;
-
+/**
+ * Toggles the mute state of all sounds and update the mute icon.
+ */
 function toggleMute() {
     if (isMuted) {
         allSounds.forEach(sound => {
@@ -43,6 +50,9 @@ function toggleMute() {
     }
 }
 
+/**
+ * Stops playback of all sounds and resets their current time to zero.
+ */
 function stopAllSounds() {
     allSounds.forEach(sound => {
         sound.pause();
@@ -50,4 +60,4 @@ function stopAllSounds() {
     });
 }
 
-muteButton.addEventListener("click", toggleMute);
+
