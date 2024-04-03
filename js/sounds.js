@@ -21,37 +21,85 @@ const allSounds = [
 ];
 
 const muteButton = document.getElementById("muteButton");
-let isMuted = false;
-
+let isMuted = localStorage.getItem('isMuted') === 'true';
 
 /**
- * Adjusts the volume of all sounds in the `allSounds` array.
+ * Initializes the mute button icon based on the mute status stored in localStorage.
+ * If the mute status is "true", sets the icon to "mute.png", otherwise sets it to "unmute.png".
+ */
+function initMuteButton() {
+    const isMuted = localStorage.getItem('isMuted') === 'true';
+    const muteIcon = document.getElementById("muteIcon");
+    if (isMuted) {
+        muteIcon.src = "img/design_icons/mute.png";
+    } else {
+        muteIcon.src = "img/design_icons/unmute.png";
+    }
+}
+
+/**
+ * Loads the mute state from localStorage and calls either the `mute()` or `unmute()` functions accordingly
+ * to set the mute state.
+ */
+function loadMuteState() {
+    if (isMuted) {
+        mute();
+    } else {
+        unmute();
+    }
+}
+
+/**
+ * Saves the current mute state to localStorage.
+ */
+function saveMuteState() {
+    localStorage.setItem('isMuted', isMuted);
+}
+
+/**
+ * Setzt die Lautstärke aller Sounds.
  */
 allSounds.forEach(sound => {
     sound.volume = 0.25;
 });
 
 /**
- * Toggles the mute state of all sounds and update the mute icon.
+ * Schaltet die Stummschaltung um und aktualisiert das Symbol.
  */
 function toggleMute() {
     if (isMuted) {
-        allSounds.forEach(sound => {
-            sound.volume = 0.25;
-        });
-        isMuted = false;
-        document.getElementById("muteIcon").src = "img/design_icons/mute.png";
+        unmute();
     } else {
-        allSounds.forEach(sound => {
-            sound.volume = 0;
-        });
-        isMuted = true;
-        document.getElementById("muteIcon").src = "img/design_icons/unmute.png";
+        mute();
     }
 }
 
 /**
- * Stops playback of all sounds and resets their current time to zero.
+ * Setzt den Stummschaltungsstatus auf stumm und aktualisiert das Symbol.
+ */
+function mute() {
+    allSounds.forEach(sound => {
+        sound.volume = 0;
+    });
+    isMuted = true;
+    saveMuteState();
+    document.getElementById("muteIcon").src = "img/design_icons/mute.png";
+}
+
+/**
+ * Setzt den Stummschaltungsstatus auf nicht stumm und aktualisiert das Symbol.
+ */
+function unmute() {
+    allSounds.forEach(sound => {
+        sound.volume = 0.25;
+    });
+    isMuted = false;
+    saveMuteState();
+    document.getElementById("muteIcon").src = "img/design_icons/unmute.png";
+}
+
+/**
+ * Stoppt die Wiedergabe aller Sounds und setzt ihre aktuelle Zeit auf null.
  */
 function stopAllSounds() {
     allSounds.forEach(sound => {
@@ -60,4 +108,7 @@ function stopAllSounds() {
     });
 }
 
-
+/**
+ * Loads the mute Status at loading the site
+ */
+loadMuteState();

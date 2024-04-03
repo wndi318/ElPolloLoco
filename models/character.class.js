@@ -57,10 +57,10 @@ class Character extends MovableObject {
         'img/2_character_pepe/1_idle/idle/I-10.png'
     ];
 
-     /**
-     * Array of image paths representing the character sleeping animation.
-     * @type {string[]}
-     */
+    /**
+    * Array of image paths representing the character sleeping animation.
+    * @type {string[]}
+    */
     IMAGES_SLEEPING = [
         'img/2_character_pepe/1_idle/long_idle/I-11.png',
         'img/2_character_pepe/1_idle/long_idle/I-12.png',
@@ -74,10 +74,10 @@ class Character extends MovableObject {
         'img/2_character_pepe/1_idle/long_idle/I-20.png'
     ];
 
-     /**
-     * Array of image paths representing the character dead animation.
-     * @type {string[]}
-     */
+    /**
+    * Array of image paths representing the character dead animation.
+    * @type {string[]}
+    */
     IMAGES_DEAD = [
         'img/2_character_pepe/5_dead/D-51.png',
         'img/2_character_pepe/5_dead/D-52.png',
@@ -129,6 +129,15 @@ class Character extends MovableObject {
      * Initiates the character animation loops.
      */
     animate() {
+        this.setupMovementInterval();
+        this.setupAnimationInterval();
+    }
+
+
+    /**
+    * Initialisiert das Bewegungsintervall des Charakters.
+    */
+    setupMovementInterval() {
         setInterval(() => {
             walkingSound.pause();
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
@@ -136,25 +145,26 @@ class Character extends MovableObject {
                 this.otherDirection = false;
                 walkingSound.play();
             }
-
             if (this.world.keyboard.LEFT && this.x > 0) {
                 this.moveLeft();
                 this.otherDirection = true;
                 walkingSound.play();
             }
             this.world.camera_x = -this.x + 100;
-
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
                 this.jump();
                 jumpingSound.play();
             }
-
         }, 1000 / 60);
+    }
 
+    /**
+    * Initialisiert das Animationsintervall des Charakters.
+    */
+    setupAnimationInterval() {
         setInterval(() => {
             const currentTime = new Date().getTime();
             const timeSinceLastMove = currentTime - this.idleTime;
-
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
                 gameOver();
@@ -165,10 +175,10 @@ class Character extends MovableObject {
             }
             else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
-            } 
+            }
             else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                    this.playAnimation(this.IMAGES_WALKING);
-                    this.idleTime = currentTime;
+                this.playAnimation(this.IMAGES_WALKING);
+                this.idleTime = currentTime;
             }
             else if (timeSinceLastMove > 5000) {
                 this.playAnimation(this.IMAGES_SLEEPING);
@@ -176,9 +186,7 @@ class Character extends MovableObject {
             else if (!this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_IDLE);
             }
-
-        }, 50);
-
+        }, 120);
     }
 
     /**
@@ -192,9 +200,9 @@ class Character extends MovableObject {
         coinSound.play();
     }
 
-     /**
-     * Plays a sound while picking up a bottle
-     */
+    /**
+    * Plays a sound while picking up a bottle
+    */
     getBottle() {
         pickBottleSound.play();
     }

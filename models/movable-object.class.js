@@ -55,24 +55,29 @@ class MovableObject extends DrawableObject {
      * Plays a hurt sound effect.
      */
     hit() {
-        this.energy -= 10;
-        if (this.energy < 0) {
-            this.energy = 0;
-        } else {
-            this.lastHit = new Date().getTime();
+        if (!this.isAboveGround()) {
+            this.energy -= 10;
+            if (this.energy < 0) {
+                this.energy = 0;
+            } else {
+                this.lastHit = new Date().getTime();
+            }
+            hurtSound.play();
         }
-        hurtSound.play();
     }
 
     /**
      * Decreases the end boss's energy when hit.
      */
     endbossHit() {
-        this.endbossEnergy -= 20;
-        if (this.endbossEnergy <= 0) {
-            this.endbossEnergy = 0;
-        } else {
-            this.lastHit = new Date().getTime();
+        let currentTime = new Date().getTime();
+        let timePassed = currentTime - this.lastHit; // Time passed since last hit in milliseconds
+        if (timePassed >= 500) { // Check if at least 0.5 seconds (500 milliseconds) have passed since last hit
+            this.endbossEnergy -= 20;
+            if (this.endbossEnergy <= 0) {
+                this.endbossEnergy = 0;
+            }
+            this.lastHit = currentTime; // Update last hit time
         }
     }
 

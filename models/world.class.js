@@ -65,11 +65,14 @@ class World {
     * Checks if the player initiated a throw action and throws a bottle if conditions are met.
     */
     checkThrowObjects() {
-        if (this.keyboard.D && this.bottleCount > 0) {
+        const currentTime = Date.now();
+        const throwCooldown = 1000;
+        if (this.keyboard.D && this.bottleCount > 0 && (!this.lastThrowTime || currentTime - this.lastThrowTime >= throwCooldown)) {
             let bottle = new ThrowableObject(this.character.x, this.character.y + 100, this.character.otherDirection);
             this.throwableObjects.push(bottle);
             this.bottleBar.setPercentage(this.bottleCount * 10);
             this.bottleCount--;
+            this.lastThrowTime = currentTime;
         }
     }
 
@@ -141,15 +144,13 @@ class World {
     * sets the 'deadChicken' property of the enemy to true, adjusts the character's acceleration,
     * makes the character jump, and removes the enemy from the game after a delay.
     */
-    checkCharacterJumpOnChicken() {
+     checkCharacterJumpOnChicken() {
         this.level.enemies.forEach((enemy, enemyIndex) => {
-            if (this.character.isColliding(enemy) && this.character.y + this.character.offset.bottom + this.character.height <= enemy.y + enemy.height && !enemy.deadChicken) {
+            if (this.character.y > 120 && this.character.isColliding(enemy) && this.character.y + this.character.offset.bottom + this.character.height <= enemy.y + enemy.height && !enemy.deadChicken) {
                 enemy.deadChicken = true;
                 this.character.acceleration = 3.0;
                 this.character.jump();
-                setTimeout(() => {
-                    this.level.enemies.splice(enemyIndex, 1);
-                }, 200);
+                this.level.enemies.splice(enemyIndex, 1);
             }
         });
     }
@@ -179,7 +180,7 @@ class World {
                 this.endbossBar.setPercentage(this.endboss.endbossEnergy);
                 setTimeout(() => {
                     this.throwableObjects.splice(bottleIndex, 1);
-                }, 1);
+                }, 200);
             }
         });
     }
@@ -226,10 +227,10 @@ class World {
         this.addToMap(this.endbossBar);
         this.ctx.translate(this.camera_x, 0);
 
+        this.addObjectsToMap(this.level.clouds);
         this.addToMap(this.character);
         this.addToMap(this.endboss);
         this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.bottles);
 

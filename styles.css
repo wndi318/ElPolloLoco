@@ -194,7 +194,7 @@ canvas {
     display: block;
 }
 
-@media only screen and (max-width: 950px) {
+@media only screen and (max-width: 720px) {
     canvas {
         width: 100%;
         position: absolute;
@@ -208,51 +208,9 @@ canvas {
         display: flex;
     }
 
-    #gameScreen {
-        height: 100%;
-        width: 100%;
+    body {
+        background-color: #6D6D6D;
     }
-
-    .startScreen {
-        z-index: 1;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 100%;
-        height: auto;
-    }
-
-    .endScreen {
-        z-index: 1;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 100%;
-        height: auto;
-    }
-
-    #endScreenImage {
-        width: 100%;
-        height: auto;
-    }
-
-    #startScreenImage {
-        width: 100%;
-        height: auto;
-    }
-
-    #startGameButton {
-        font-size: 3.5vw;
-    }
-
-    .keyInfo {
-        display: none;
-    }
-
-    .mobileButtons {
-        display: flex;
-    }
-
 }
 
 @media only screen and (max-height: 480px) {
@@ -280,6 +238,7 @@ canvas {
         left: 50%;
         transform: translate(-50%, -50%);
         width: 100%;
+        height: 100%;
         height: auto;
     }
 

@@ -87,7 +87,7 @@ class ThrowableObject extends MovableObject {
             if (this.bottleSplash || this.y >= 360) {
                 this.playAnimation(this.IMAGES_SPLASH);
                 this.speedY = 0;
-                this.y = 370;
+                this.speedX = 0;
                 if (!this.splashSoundPlayed) {
                     bottleSplashSound.play();
                     this.splashSoundPlayed = true;

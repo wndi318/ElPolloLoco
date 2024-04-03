@@ -8,6 +8,7 @@ let keyboard = new Keyboard();
  */
 function startGame() {
     init();
+    initMuteButton();
     document.getElementById('startScreen').style.display = 'none';
 }
 
@@ -23,7 +24,9 @@ function gameOver() {
  * Taking the user back to the menu.
  */
 function backToMenu() {
-    location.reload();
+    for (let i = 1; i < 9999; i++) window.clearInterval(i);
+    document.getElementById('endScreen').style.display = 'none';
+    document.getElementById('startScreen').style.display = 'block';
 }
 
 /**
@@ -31,6 +34,7 @@ function backToMenu() {
  * Also sets up mobile controls.
  */
 function init() {
+    initLevel();
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     setupMobileControls();
@@ -125,6 +129,10 @@ function setupMobileControls() {
  */
 function toggleFullScreen() {
     let elem = document.getElementById('fullBody');
+    let gameScreen = document.getElementById('gameScreen');
+    let canvas = document.getElementById('canvas');
+    let startScreen = document.getElementById('startScreenImage');
+    let endScreen = document.getElementById('endScreenImage');
 
     if (!document.fullscreenElement) {
         if (elem.requestFullscreen) {
@@ -136,6 +144,16 @@ function toggleFullScreen() {
         } else if (elem.msRequestFullscreen) {
             elem.msRequestFullscreen();
         }
+
+        // Set gameScreen, canvas, startScreen, and endScreen height and width to 100% when entering fullscreen
+        gameScreen.style.width = "100%";
+        gameScreen.style.height = "100%";
+        canvas.style.width = "100%";
+        canvas.style.height = "94%";
+        startScreen.style.width = "100vw";
+        startScreen.style.height = "100vh";
+        endScreen.style.width = "100vw";
+        endScreen.style.height = "100vh";
         
     } else {
         if (document.exitFullscreen) {
@@ -147,5 +165,18 @@ function toggleFullScreen() {
         } else if (document.msExitFullscreen) {
             document.msExitFullscreen();
         }
+
+        // Reset gameScreen, canvas, startScreen, and endScreen height and width when exiting fullscreen
+        gameScreen.style.width = "";
+        gameScreen.style.height = "";
+        canvas.style.width = "";
+        canvas.style.height = "";
+        startScreen.style.width = "";
+        startScreen.style.height = "";
+        endScreen.style.width = "";
+        endScreen.style.height = "";
     }
 }
+
+
+
