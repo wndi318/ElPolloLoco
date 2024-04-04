@@ -15,6 +15,8 @@ class World {
     endbossBar = new EndbossBar();
     throwableObjects = [];
     bottleCount = 0;
+    wasHit = false; // Flag to track if the character was hit
+    hitTimeout = null; // Timeout for resetting wasHit
 
     /**
      * Constructs a new World object.
@@ -85,6 +87,14 @@ class World {
             if (this.character.isColliding(enemy)) {
                 this.character.hit();
                 this.healthBar.setPercentage(this.character.energy);
+                this.wasHit = true; // Character was hit
+                // Set a timeout to reset wasHit after 0.5 seconds
+                if (this.hitTimeout) {
+                    clearTimeout(this.hitTimeout);
+                }
+                this.hitTimeout = setTimeout(() => {
+                    this.wasHit = false;
+                }, 200);
             }
         });
     }
@@ -144,9 +154,15 @@ class World {
     * sets the 'deadChicken' property of the enemy to true, adjusts the character's acceleration,
     * makes the character jump, and removes the enemy from the game after a delay.
     */
-     checkCharacterJumpOnChicken() {
+    checkCharacterJumpOnChicken() {
         this.level.enemies.forEach((enemy, enemyIndex) => {
-            if (this.character.y > 120 && this.character.isColliding(enemy) && this.character.y + this.character.offset.bottom + this.character.height <= enemy.y + enemy.height && !enemy.deadChicken) {
+            if (
+                this.character.isColliding(enemy) &&
+                this.character.isAboveGround() && // Charakter ist über dem Boden
+                this.character.y < enemy.y && // Charakter ist oberhalb des Huhns
+                !enemy.deadChicken &&
+                !this.wasHit // Check if character was not hit before attempting to jump on chicken
+            ) {
                 enemy.deadChicken = true;
                 this.character.acceleration = 3.0;
                 this.character.jump();

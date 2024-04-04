@@ -174,7 +174,9 @@ class Character extends MovableObject {
                 this.playAnimation(this.IMAGES_HURT);
             }
             else if (this.isAboveGround()) {
+                this.resetAnimationIndex();
                 this.playAnimation(this.IMAGES_JUMPING);
+                this.idleTime = currentTime;
             }
             else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 this.playAnimation(this.IMAGES_WALKING);
@@ -183,10 +185,25 @@ class Character extends MovableObject {
             else if (timeSinceLastMove > 5000) {
                 this.playAnimation(this.IMAGES_SLEEPING);
             }
-            else if (!this.isAboveGround()) {
+            else {
                 this.playAnimation(this.IMAGES_IDLE);
             }
-        }, 120);
+        }, 100);
+    }
+
+    /**
+    * Resets the animation index for the current animation.
+    */
+    resetAnimationIndex() {
+        this.currentAnimationIndex = 0;
+    }
+
+    /**
+     * Makes the movable object jump by setting its vertical speed.
+     */
+    jump() {
+        this.speedY = 30;
+        this.idleTime = new Date().getTime();
     }
 
     /**

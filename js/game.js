@@ -122,7 +122,14 @@ function setupMobileControls() {
     btnThrow.addEventListener('touchend', () => {
         keyboard.D = false;
     });
+
+    document.querySelectorAll('.mobileButtons img').forEach(button => {
+        button.addEventListener('contextmenu', function(event) {
+            event.preventDefault();
+        });
+    });
 }
+
 
 /**
  * Toggles the fullscreen mode for the specified element.

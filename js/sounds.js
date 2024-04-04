@@ -35,6 +35,10 @@ function initMuteButton() {
     } else {
         muteIcon.src = "img/design_icons/unmute.png";
     }
+
+    muteButton.addEventListener('contextmenu', function(event) {
+        event.preventDefault();
+    });
 }
 
 /**
