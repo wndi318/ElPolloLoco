@@ -199,13 +199,13 @@ class Character extends MovableObject {
     }
 
     /**
-     * Makes the movable object jump by setting its vertical speed.
-     */
+    * Makes the movable object jump by setting its vertical speed.
+    */
     jump() {
         this.speedY = 30;
+        this.resetAnimationIndex(); // Reset animation index when jumping
         this.idleTime = new Date().getTime();
     }
-
     /**
      * Updates the character's coin count and plays a sound while pick up.
      */

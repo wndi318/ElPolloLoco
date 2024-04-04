@@ -94,7 +94,7 @@ class World {
                 }
                 this.hitTimeout = setTimeout(() => {
                     this.wasHit = false;
-                }, 200);
+                }, 90);
             }
         });
     }
