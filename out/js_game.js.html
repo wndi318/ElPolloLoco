@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: js/game.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: js/game.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>let canvas;
+let world;
+let keyboard = new Keyboard();
+
+
+/**
+ * Starts the game, initializes it, and hides the start screen.
+ */
+function startGame() {
+    init();
+    initMuteButton();
+    document.getElementById('startScreen').style.display = 'none';
+}
+
+/**
+ * Displays the end screen and stops all intervals.
+ */
+function gameOver() {
+    document.getElementById('endScreen').style.display = 'block';
+    for (let i = 1; i &lt; 9999; i++) window.clearInterval(i);
+}
+
+/**
+ * Taking the user back to the menu.
+ */
+function backToMenu() {
+    for (let i = 1; i &lt; 9999; i++) window.clearInterval(i);
+    document.getElementById('endScreen').style.display = 'none';
+    document.getElementById('startScreen').style.display = 'block';
+}
+
+/**
+ * Initializes the game by setting up the canvas and creating the game world.
+ * Also sets up mobile controls.
+ */
+function init() {
+    initLevel();
+    canvas = document.getElementById('canvas');
+    world = new World(canvas, keyboard);
+    setupMobileControls();
+}
+
+/**
+ * Event listener function that listens for keydown events and updates the keyboard object accordingly.
+ */
+window.addEventListener('keydown', (event) => {
+    if (event.keyCode == 39) {
+        keyboard.RIGHT = true;
+    }
+
+    if (event.keyCode == 37) {
+        keyboard.LEFT = true;
+    }
+
+    if (event.keyCode == 32) {
+        keyboard.SPACE = true;
+    }
+
+    if (event.keyCode == 68) {
+        keyboard.D = true;
+    }
+});
+
+/**
+ * Event listener function that listens for keyup events and updates the keyboard object accordingly.
+ */
+window.addEventListener('keyup', (event) => {
+    if (event.keyCode == 39) {
+        keyboard.RIGHT = false;
+    }
+
+    if (event.keyCode == 37) {
+        keyboard.LEFT = false;
+    }
+
+    if (event.keyCode == 32) {
+        keyboard.SPACE = false;
+    }
+
+    if (event.keyCode == 68) {
+        keyboard.D = false;
+    }
+});
+
+/**
+ * Sets up mobile controls for the game by adding touch event listeners to control buttons.
+ */
+function setupMobileControls() {
+    const btnLeft = document.getElementById('btnLeft');
+    const btnRight = document.getElementById('btnRight');
+    const btnJump = document.getElementById('btnJump');
+    const btnThrow = document.getElementById('btnThrow');
+
+    btnLeft.addEventListener('touchstart', () => {
+        keyboard.LEFT = true;
+    });
+
+    btnLeft.addEventListener('touchend', () => {
+        keyboard.LEFT = false;
+    });
+
+    btnRight.addEventListener('touchstart', () => {
+        keyboard.RIGHT = true;
+    });
+
+    btnRight.addEventListener('touchend', () => {
+        keyboard.RIGHT = false;
+    });
+
+    btnJump.addEventListener('touchstart', () => {
+        keyboard.SPACE = true;
+    });
+
+    btnJump.addEventListener('touchend', () => {
+        keyboard.SPACE = false;
+    });
+
+    btnThrow.addEventListener('touchstart', () => {
+        keyboard.D = true;
+    });
+
+    btnThrow.addEventListener('touchend', () => {
+        keyboard.D = false;
+    });
+
+    document.querySelectorAll('.mobileButtons img').forEach(button => {
+        button.addEventListener('contextmenu', function(event) {
+            event.preventDefault();
+        });
+    });
+}
+
+
+/**
+ * Toggles the fullscreen mode for the specified element.
+ */
+function toggleFullScreen() {
+    let elem = document.getElementById('fullBody');
+    let gameScreen = document.getElementById('gameScreen');
+    let canvas = document.getElementById('canvas');
+    let startScreen = document.getElementById('startScreenImage');
+    let endScreen = document.getElementById('endScreenImage');
+
+    if (!document.fullscreenElement) {
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem.mozRequestFullScreen) {
+            elem.mozRequestFullScreen();
+        } else if (elem.webkitRequestFullscreen) {
+            elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) {
+            elem.msRequestFullscreen();
+        }
+
+        // Set gameScreen, canvas, startScreen, and endScreen height and width to 100% when entering fullscreen
+        gameScreen.style.width = "100%";
+        gameScreen.style.height = "100%";
+        canvas.style.width = "100%";
+        canvas.style.height = "94%";
+        startScreen.style.width = "100vw";
+        startScreen.style.height = "100vh";
+        endScreen.style.width = "100vw";
+        endScreen.style.height = "100vh";
+        
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+        }
+
+        // Reset gameScreen, canvas, startScreen, and endScreen height and width when exiting fullscreen
+        gameScreen.style.width = "";
+        gameScreen.style.height = "";
+        canvas.style.width = "";
+        canvas.style.height = "";
+        startScreen.style.width = "";
+        startScreen.style.height = "";
+        endScreen.style.width = "";
+        endScreen.style.height = "";
+    }
+}
+
+
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="BackgroundObject.html">BackgroundObject</a></li><li><a href="Bottle.html">Bottle</a></li><li><a href="BottleBar.html">BottleBar</a></li><li><a href="Character.html">Character</a></li><li><a href="Chicken.html">Chicken</a></li><li><a href="Cloud.html">Cloud</a></li><li><a href="Coin.html">Coin</a></li><li><a href="CoinBar.html">CoinBar</a></li><li><a href="DrawableObject.html">DrawableObject</a></li><li><a href="Endboss.html">Endboss</a></li><li><a href="EndbossBar.html">EndbossBar</a></li><li><a href="HealthBar.html">HealthBar</a></li><li><a href="Keyboard.html">Keyboard</a></li><li><a href="Level.html">Level</a></li><li><a href="MiniChicken.html">MiniChicken</a></li><li><a href="MovableObject.html">MovableObject</a></li><li><a href="StatusBar.html">StatusBar</a></li><li><a href="ThrowableObject.html">ThrowableObject</a></li><li><a href="World.html">World</a></li></ul><h3>Global</h3><ul><li><a href="global.html#backToMenu">backToMenu</a></li><li><a href="global.html#gameOver">gameOver</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initMuteButton">initMuteButton</a></li><li><a href="global.html#loadMuteState">loadMuteState</a></li><li><a href="global.html#mute">mute</a></li><li><a href="global.html#saveMuteState">saveMuteState</a></li><li><a href="global.html#setupMobileControls">setupMobileControls</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#stopAllSounds">stopAllSounds</a></li><li><a href="global.html#toggleFullScreen">toggleFullScreen</a></li><li><a href="global.html#toggleMute">toggleMute</a></li><li><a href="global.html#unmute">unmute</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Apr 04 2024 19:25:40 GMT+0200 (Mitteleuropäische Sommerzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

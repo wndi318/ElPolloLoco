@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: js/sounds.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: js/sounds.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const coinSound = new Audio('audio/coin.mp3');
+const walkingSound = new Audio('audio/walking.mp3');
+const jumpingSound = new Audio('audio/jump.mp3');
+const pickBottleSound = new Audio('audio/pick_bottle.mp3');
+const hitChickenSound = new Audio('audio/chicken_hit.mp3');
+const hurtSound = new Audio('audio/hurt.mp3');
+const bottleSplashSound = new Audio('audio/bottle_splash.mp3');
+const bossSound = new Audio('audio/boss_sound.mp3');
+const backgroundSound = new Audio('audio/background_sound.mp3');
+
+const allSounds = [
+    coinSound,
+    walkingSound,
+    jumpingSound,
+    pickBottleSound,
+    hitChickenSound,
+    hurtSound,
+    bottleSplashSound,
+    bossSound,
+    backgroundSound
+];
+
+const muteButton = document.getElementById("muteButton");
+let isMuted = localStorage.getItem('isMuted') === 'true';
+
+/**
+ * Initializes the mute button icon based on the mute status stored in localStorage.
+ * If the mute status is "true", sets the icon to "mute.png", otherwise sets it to "unmute.png".
+ */
+function initMuteButton() {
+    const isMuted = localStorage.getItem('isMuted') === 'true';
+    const muteIcon = document.getElementById("muteIcon");
+    if (isMuted) {
+        muteIcon.src = "img/design_icons/mute.png";
+    } else {
+        muteIcon.src = "img/design_icons/unmute.png";
+    }
+
+    muteButton.addEventListener('contextmenu', function(event) {
+        event.preventDefault();
+    });
+}
+
+/**
+ * Loads the mute state from localStorage and calls either the `mute()` or `unmute()` functions accordingly
+ * to set the mute state.
+ */
+function loadMuteState() {
+    if (isMuted) {
+        mute();
+    } else {
+        unmute();
+    }
+}
+
+/**
+ * Saves the current mute state to localStorage.
+ */
+function saveMuteState() {
+    localStorage.setItem('isMuted', isMuted);
+}
+
+/**
+ * Setzt die Lautstärke aller Sounds.
+ */
+allSounds.forEach(sound => {
+    sound.volume = 0.25;
+});
+
+/**
+ * Schaltet die Stummschaltung um und aktualisiert das Symbol.
+ */
+function toggleMute() {
+    if (isMuted) {
+        unmute();
+    } else {
+        mute();
+    }
+}
+
+/**
+ * Setzt den Stummschaltungsstatus auf stumm und aktualisiert das Symbol.
+ */
+function mute() {
+    allSounds.forEach(sound => {
+        sound.volume = 0;
+    });
+    isMuted = true;
+    saveMuteState();
+    document.getElementById("muteIcon").src = "img/design_icons/mute.png";
+}
+
+/**
+ * Setzt den Stummschaltungsstatus auf nicht stumm und aktualisiert das Symbol.
+ */
+function unmute() {
+    allSounds.forEach(sound => {
+        sound.volume = 0.25;
+    });
+    isMuted = false;
+    saveMuteState();
+    document.getElementById("muteIcon").src = "img/design_icons/unmute.png";
+}
+
+/**
+ * Stoppt die Wiedergabe aller Sounds und setzt ihre aktuelle Zeit auf null.
+ */
+function stopAllSounds() {
+    allSounds.forEach(sound => {
+        sound.pause();
+        sound.currentTime = 0;
+    });
+}
+
+/**
+ * Loads the mute Status at loading the site
+ */
+loadMuteState();</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="BackgroundObject.html">BackgroundObject</a></li><li><a href="Bottle.html">Bottle</a></li><li><a href="BottleBar.html">BottleBar</a></li><li><a href="Character.html">Character</a></li><li><a href="Chicken.html">Chicken</a></li><li><a href="Cloud.html">Cloud</a></li><li><a href="Coin.html">Coin</a></li><li><a href="CoinBar.html">CoinBar</a></li><li><a href="DrawableObject.html">DrawableObject</a></li><li><a href="Endboss.html">Endboss</a></li><li><a href="EndbossBar.html">EndbossBar</a></li><li><a href="HealthBar.html">HealthBar</a></li><li><a href="Keyboard.html">Keyboard</a></li><li><a href="Level.html">Level</a></li><li><a href="MiniChicken.html">MiniChicken</a></li><li><a href="MovableObject.html">MovableObject</a></li><li><a href="StatusBar.html">StatusBar</a></li><li><a href="ThrowableObject.html">ThrowableObject</a></li><li><a href="World.html">World</a></li></ul><h3>Global</h3><ul><li><a href="global.html#backToMenu">backToMenu</a></li><li><a href="global.html#gameOver">gameOver</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initMuteButton">initMuteButton</a></li><li><a href="global.html#loadMuteState">loadMuteState</a></li><li><a href="global.html#mute">mute</a></li><li><a href="global.html#saveMuteState">saveMuteState</a></li><li><a href="global.html#setupMobileControls">setupMobileControls</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#stopAllSounds">stopAllSounds</a></li><li><a href="global.html#toggleFullScreen">toggleFullScreen</a></li><li><a href="global.html#toggleMute">toggleMute</a></li><li><a href="global.html#unmute">unmute</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Apr 04 2024 19:25:40 GMT+0200 (Mitteleuropäische Sommerzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
